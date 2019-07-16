@@ -42,10 +42,21 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Android.Support.v7.RecyclerView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\.nuget\packages\xamarin.android.support.v7.recyclerview\28.0.0.1\lib\monoandroid90\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatorListener.cs" />
+    <Compile Include="IndexDiffUtilCallback.cs" />
+    <Compile Include="IndexedItemHolderInfo.cs" />
+    <Compile Include="ItemAnimator.cs" />
+    <Compile Include="PredictiveLinearLayoutManager.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeMenuAdapter.cs" />
+    <Compile Include="TreeMenuAdapterDelegate.cs" />
+    <Compile Include="TreeMenuCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -54,10 +65,29 @@
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\color\tree_menu_child_item_text_selector.xml" />
+    <AndroidResource Include="Resources\color\tree_menu_parent_item_text_selector.xml" />
+    <AndroidResource Include="Resources\color\tree_menu_selected_item_text_selector.xml" />
+    <AndroidResource Include="Resources\drawable\tree_menu_child_item_background_selector.xml" />
+    <AndroidResource Include="Resources\drawable\tree_menu_parent_item_background_selector.xml" />
+    <AndroidResource Include="Resources\drawable\tree_menu_selected_item_background_selector.xml" />
+    <AndroidResource Include="Resources\layout\tree_menu_item.axml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\dimens.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
+    <ProjectReference Include="..\TreeMenuView.Shared\TreeMenuView.Shared.csproj">
+      <Project>{8570ad67-4d95-44dd-a121-2e9ed3c9077d}</Project>
+      <Name>TreeMenuView.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeMenuView.Utility\TreeMenuView.Utility.csproj">
+      <Project>{06708588-11a0-4157-a375-90e5bba611de}</Project>
+      <Name>TreeMenuView.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

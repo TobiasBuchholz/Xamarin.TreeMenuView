@@ -73,9 +73,6 @@
     <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\content_main.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
@@ -106,6 +103,20 @@
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TreeMenuSample.Shared\TreeMenuSample.Shared.csproj">
+      <Project>{f55dd5f0-579c-4510-9d3f-c0f3608e8fa5}</Project>
+      <Name>TreeMenuSample.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeMenuView.Android\TreeMenuView.Android.csproj">
+      <Project>{aa6e2aaa-3c4f-4e41-a95f-a169c12a6375}</Project>
+      <Name>TreeMenuView.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeMenuView.Shared\TreeMenuView.Shared.csproj">
+      <Project>{8570ad67-4d95-44dd-a121-2e9ed3c9077d}</Project>
+      <Name>TreeMenuView.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
