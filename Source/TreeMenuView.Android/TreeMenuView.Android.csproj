@@ -57,6 +57,7 @@
     <Compile Include="TreeMenuAdapter.cs" />
     <Compile Include="TreeMenuAdapterDelegate.cs" />
     <Compile Include="TreeMenuCell.cs" />
+    <Compile Include="TreeMenuView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

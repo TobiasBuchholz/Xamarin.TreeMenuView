@@ -5,10 +5,10 @@ namespace TreeMenuSample.Shared
 {
     public sealed class Category : ITreeNodeData<long>
     {
-        public static IList<Category> CreateSamples()
+        public static IEnumerable<Category> CreateSamples()
         {
             return new List<Category> {
-                new Category(TreeNode.ParentIdNone, 0, "All we got"),
+                new Category(TreeNode.ParentIdNone, 0, "All categories"),
                 new Category(0, 1, "Development"),
                 new Category(0, 2, "Recipes"),
                 new Category(0, 3, "Sport"),

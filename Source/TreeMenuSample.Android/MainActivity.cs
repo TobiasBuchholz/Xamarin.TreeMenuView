@@ -4,12 +4,10 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using TreeMenuSample.Shared;
 using TreeMenuView.Android;
-using TreeMenuView.Shared.Extensions;
 
 namespace TreeMenuSample.Android
 {
@@ -23,17 +21,11 @@ namespace TreeMenuSample.Android
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-
             var layout = FindViewById<FrameLayout>(Resource.Id.layout);
-            var recyclerView = new RecyclerView(this);
-			var adapter = new TreeMenuAdapter<Category, long>(recyclerView);
-			recyclerView.SetLayoutManager(new PredictiveLinearLayoutManager(this));
-			recyclerView.SetAdapter(adapter);
-            layout.AddView(recyclerView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+            var treeMenuView = new TreeMenuView<Category, long>(this);
+            layout.AddView(treeMenuView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
             
-            var categories = Category.CreateSamples();
-            var rootNode = categories.ToRootTreeNodes<Category, long>()[0];
-            adapter.CurrentNode = rootNode;
+            treeMenuView.Items = Category.CreateSamples();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

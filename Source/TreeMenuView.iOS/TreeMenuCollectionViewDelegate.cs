@@ -2,13 +2,13 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace TreeMenuSample.iOS
+namespace TreeMenuView.iOS
 {
-	public class MyCollectionViewDelegate : UICollectionViewDelegate
+	public class TreeMenuCollectionViewDelegate : UICollectionViewDelegate
 	{
 		public event EventHandler<ItemSelectedEventArgs> OnItemSelected;
 
-		public MyCollectionViewDelegate()
+		public TreeMenuCollectionViewDelegate()
 		{
 		}
 
@@ -16,10 +16,10 @@ namespace TreeMenuSample.iOS
 		{
 			OnItemSelected?.Invoke(collectionView, new ItemSelectedEventArgs { IndexPath = indexPath });
 		}
-	}
-	
-	public sealed class ItemSelectedEventArgs : System.EventArgs 
-	{
-		public NSIndexPath IndexPath { get; set; }
+		
+        public sealed class ItemSelectedEventArgs : System.EventArgs 
+        {
+            public NSIndexPath IndexPath { get; set; }
+        }
 	}
 }
