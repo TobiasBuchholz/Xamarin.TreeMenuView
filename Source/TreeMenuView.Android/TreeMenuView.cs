@@ -21,10 +21,30 @@ namespace TreeMenuView.Android
             _recyclerView.SetAdapter(_adapter);
         }
 
+        public void ReloadData()
+        {
+            _adapter.NotifyDataSetChanged();
+        }
+
         public IEnumerable<TData> Items {
             set => _adapter.CurrentNode = value.ToRootTreeNodes<TData, TKey>()[0];
         }
 
         public View View => _recyclerView;
+        
+        public TreeNode<TData, TKey> CurrentNode {
+            get => _adapter.CurrentNode;
+            set => _adapter.CurrentNode = value;
+        }
+        
+        public event EventHandler<TreeNode<TData, TKey>> NodeSelected {
+            add => _adapter.NodeSelected += value;
+            remove => _adapter.NodeSelected -= value;
+        }
+        
+        public event EventHandler<int> HeightWillChange {
+            add => _adapter.HeightWillChange += value;
+            remove => _adapter.HeightWillChange -= value;
+        }
     }
 }

@@ -48,10 +48,30 @@ namespace TreeMenuView.iOS
             _collectionView.RegisterNibForCell(nib, reuseIdentifier);
         }
 
+        public void ReloadData()
+        {
+            _collectionView.ReloadData();
+        }
+
         public IEnumerable<TData> Items {
             set => _dataSource.CurrentNode = value.ToRootTreeNodes<TData, TKey>()[0];
         }
 
         public UIView View => _collectionView;
+        
+        public TreeNode<TData, TKey> CurrentNode {
+            get => _dataSource.CurrentNode;
+            set => _dataSource.CurrentNode = value;
+        }
+        
+        public event EventHandler<TreeNode<TData, TKey>> NodeSelected {
+            add => _dataSource.NodeSelected += value;
+            remove => _dataSource.NodeSelected -= value;
+        }
+        
+        public event EventHandler<nfloat> HeightWillChange {
+            add => _dataSource.HeightWillChange += value;
+            remove => _dataSource.HeightWillChange -= value;
+        }
     }
 }
