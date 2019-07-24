@@ -8,29 +8,21 @@ using UIKit;
 
 namespace TreeMenuView.iOS
 {
-    public sealed class TreeMenuView<TData, TKey> : UICollectionView where TData : ITreeNodeData<TKey>
+    public sealed class TreeMenuView<TData, TKey> where TData : ITreeNodeData<TKey>
     {
-        private TreeMenuDataSource<TData, TKey> _dataSource;
+        private readonly UICollectionView _collectionView;
+        private readonly TreeMenuDataSource<TData, TKey> _dataSource;
         
-        public TreeMenuView(NSCoder coder) 
-            : base(coder)
-        {
-        }
-
-        public TreeMenuView(NSObjectFlag t) 
-            : base(t)
-        {
-        }
-
-        internal TreeMenuView(IntPtr handle) 
-            : base(handle)
-        {
-        }
-
         public TreeMenuView(string cellIdentifier, float cellHeight) 
-            : base(CGRect.Empty, CreateCollectionViewLayout(cellHeight))
         {
-            Initialize(cellIdentifier);
+            var collectionViewDelegate = new TreeMenuCollectionViewDelegate();
+            _dataSource = new TreeMenuDataSource<TData, TKey>(cellHeight, cellIdentifier);
+            _collectionView = new UICollectionView(CGRect.Empty, CreateCollectionViewLayout(cellHeight));
+            _collectionView.BackgroundColor = UIColor.Clear;
+            _collectionView.Bounces = false;
+            _collectionView.DataSource = _dataSource;
+            _collectionView.Delegate = collectionViewDelegate;
+            collectionViewDelegate.OnItemSelected += (sender, args) => _dataSource.ItemSelected(_collectionView, args.IndexPath);
         }
         
         private static TreeMenuCollectionViewFlowLayout CreateCollectionViewLayout(float itemHeight)
@@ -40,20 +32,26 @@ namespace TreeMenuView.iOS
                 ItemSize = new CGSize(UIScreen.MainScreen.Bounds.Width, itemHeight)
             };
         }
-
-        private void Initialize(string cellIdentifier)
+        
+        public void RegisterClassForCell(Type cellType, string reuseIdentifier)
         {
-            var collectionViewDelegate = new TreeMenuCollectionViewDelegate();
-            _dataSource = new TreeMenuDataSource<TData, TKey>(((TreeMenuCollectionViewFlowLayout) CollectionViewLayout).ItemSize.Height, cellIdentifier);
-            BackgroundColor = UIColor.Clear;
-            Bounces = false;
-            DataSource = _dataSource;
-            Delegate = collectionViewDelegate;
-            collectionViewDelegate.OnItemSelected += (sender, args) => _dataSource.ItemSelected(this, args.IndexPath);
+            _collectionView.RegisterClassForCell(cellType, reuseIdentifier);
+        }
+        
+        public void RegisterNibForCell(UINib nib, string reuseIdentifier)
+        {
+            _collectionView.RegisterNibForCell(nib, reuseIdentifier);
+        }
+
+        public void RegisterNibForCell(UINib nib, NSString reuseIdentifier)
+        {
+            _collectionView.RegisterNibForCell(nib, reuseIdentifier);
         }
 
         public IEnumerable<TData> Items {
             set => _dataSource.CurrentNode = value.ToRootTreeNodes<TData, TKey>()[0];
         }
+
+        public UIView View => _collectionView;
     }
 }

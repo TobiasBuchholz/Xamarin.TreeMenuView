@@ -7,7 +7,8 @@ namespace TreeMenuSample.iOS
 {
     public partial class ViewController : UIViewController
     {
-        public ViewController(IntPtr handle) : base(handle)
+        public ViewController(IntPtr handle) 
+            : base(handle)
         {
         }
 
@@ -15,17 +16,17 @@ namespace TreeMenuSample.iOS
         {
             base.ViewDidLoad();
 
-            var treeMenuView = new TreeMenuView<Category, long>(CategoryCell.CellIdentifier, CategoryCell.Height);
-            treeMenuView.RegisterClassForCell(typeof(CategoryCell), CategoryCell.CellIdentifier);
-            treeMenuView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(treeMenuView);
+            var treeMenu = new TreeMenuView<Category, long>(CategoryCell.CellIdentifier, CategoryCell.Height);
+            treeMenu.RegisterClassForCell(typeof(CategoryCell), CategoryCell.CellIdentifier);
+            treeMenu.View.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(treeMenu.View);
 
-            treeMenuView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            treeMenuView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            treeMenuView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            treeMenuView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            treeMenu.View.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            treeMenu.View.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            treeMenu.View.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            treeMenu.View.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
-            treeMenuView.Items = Category.CreateSamples();
+            treeMenu.Items = Category.CreateSamples();
         }
     }
 }

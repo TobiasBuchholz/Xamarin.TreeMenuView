@@ -20,10 +20,10 @@ namespace TreeMenuSample.Android
 
             var layout = FindViewById<FrameLayout>(Resource.Id.layout);
             var cellHeight = Resources.GetDimensionPixelSize(Resource.Dimension.height_category_cell);
-            var treeMenuView = new TreeMenuView<Category, long>(this, (_,__) => new CategoryCell(this), cellHeight);
-            layout.AddView(treeMenuView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+            var treeMenu = new TreeMenuView<Category, long>(this, (_,__) => new CategoryCell(this), cellHeight);
+            layout.AddView(treeMenu.View, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
             
-            treeMenuView.Items = Category.CreateSamples();
+            treeMenu.Items = Category.CreateSamples();
         }
     }
 }
