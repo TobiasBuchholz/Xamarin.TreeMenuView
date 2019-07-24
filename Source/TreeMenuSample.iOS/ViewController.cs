@@ -1,5 +1,4 @@
 ﻿using System;
-using CoreGraphics;
 using TreeMenuSample.Shared;
 using TreeMenuView.iOS;
 using UIKit;
@@ -16,7 +15,8 @@ namespace TreeMenuSample.iOS
         {
             base.ViewDidLoad();
 
-            var treeMenuView = new TreeMenuView<Category, long>(CGRect.Empty, 56);
+            var treeMenuView = new TreeMenuView<Category, long>(CategoryCell.CellIdentifier, CategoryCell.Height);
+            treeMenuView.RegisterClassForCell(typeof(CategoryCell), CategoryCell.CellIdentifier);
             treeMenuView.TranslatesAutoresizingMaskIntoConstraints = false;
             View.AddSubview(treeMenuView);
 

@@ -27,10 +27,10 @@ namespace TreeMenuView.iOS
         {
         }
 
-        public TreeMenuView(CGRect frame, float itemHeight) 
-            : base(frame, CreateCollectionViewLayout(itemHeight))
+        public TreeMenuView(string cellIdentifier, float cellHeight) 
+            : base(CGRect.Empty, CreateCollectionViewLayout(cellHeight))
         {
-            Initialize();
+            Initialize(cellIdentifier);
         }
         
         private static TreeMenuCollectionViewFlowLayout CreateCollectionViewLayout(float itemHeight)
@@ -41,11 +41,10 @@ namespace TreeMenuView.iOS
             };
         }
 
-        private void Initialize()
+        private void Initialize(string cellIdentifier)
         {
             var collectionViewDelegate = new TreeMenuCollectionViewDelegate();
-            _dataSource = new TreeMenuDataSource<TData, TKey>(((TreeMenuCollectionViewFlowLayout) CollectionViewLayout).ItemSize.Height);
-            RegisterClassForCell(typeof(TreeMenuCell), TreeMenuCell.CellIdentifier);
+            _dataSource = new TreeMenuDataSource<TData, TKey>(((TreeMenuCollectionViewFlowLayout) CollectionViewLayout).ItemSize.Height, cellIdentifier);
             BackgroundColor = UIColor.Clear;
             Bounces = false;
             DataSource = _dataSource;

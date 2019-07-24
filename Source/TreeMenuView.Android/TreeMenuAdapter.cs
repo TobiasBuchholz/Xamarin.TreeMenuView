@@ -1,22 +1,22 @@
 using System;
 using Android.Runtime;
-using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using TreeMenuView.Shared.Models;
 
 namespace TreeMenuView.Android
 {
-    public sealed class TreeMenuAdapter<TData, TKey> : RecyclerView.Adapter 
+    public class TreeMenuAdapter<TData, TKey> : RecyclerView.Adapter 
         where TData : ITreeNodeData<TKey>
     {
         private readonly TreeMenuAdapterDelegate<TData, TKey> _delegate;
+        private readonly Func<ViewGroup, int, TreeMenuCell> _cellSelector;
         
-        public TreeMenuAdapter(RecyclerView recyclerView)
+        public TreeMenuAdapter(RecyclerView recyclerView, Func<ViewGroup, int, TreeMenuCell> cellSelector, int itemHeight)
         {
+            _cellSelector = cellSelector;
             _delegate = new TreeMenuAdapterDelegate<TData, TKey>(
-                recyclerView.Context.Resources.GetDimensionPixelSize(Resource.Dimension.height_tree_menu_item),
+                itemHeight,
                 recyclerView,
                 SelectViewHolder,
                 HandleViewHolderBound,
@@ -25,8 +25,7 @@ namespace TreeMenuView.Android
 
         private RecyclerView.ViewHolder SelectViewHolder(ViewGroup parent, int viewType)
         {
-            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.tree_menu_item, parent, false);
-            return new TreeMenuAdapterViewHolder(itemView, OnItemSelected);
+            return new TreeMenuAdapterViewHolder(_cellSelector(parent, viewType), OnItemSelected);
         }
         
         private void OnItemSelected(int index)
@@ -38,14 +37,14 @@ namespace TreeMenuView.Android
         private static void HandleViewHolderBound(RecyclerView.ViewHolder holder, ItemRelation relation, TData data)
         {
             var viewHolder = (TreeMenuAdapterViewHolder) holder;
-            viewHolder.TitleLabel.Text = data.Title;
-            viewHolder.Relation = relation;
+            viewHolder.Cell.Title = data.Title;
+            viewHolder.Cell.Relation = relation;
         }
 
         private static void HandleItemStateChanged(RecyclerView.ViewHolder holder, ItemRelation relation)
         {
             var viewHolder = (TreeMenuAdapterViewHolder) holder;
-            viewHolder.Relation = relation;
+            viewHolder.Cell.Relation = relation;
         }
         
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -77,11 +76,11 @@ namespace TreeMenuView.Android
         }
     }
     
-    public sealed class TreeMenuAdapterViewHolder : RecyclerView.ViewHolder
+    internal class TreeMenuAdapterViewHolder : RecyclerView.ViewHolder
     {
         private readonly Action<int> _itemSelectedAction;
         
-        public TreeMenuAdapterViewHolder(IntPtr javaReference, JniHandleOwnership transfer) 
+        internal TreeMenuAdapterViewHolder(IntPtr javaReference, JniHandleOwnership transfer) 
             : base(javaReference, transfer)
         {
         }
@@ -90,7 +89,6 @@ namespace TreeMenuView.Android
             : base(itemView)
         {
             _itemSelectedAction = itemSelectedAction;
-            TitleLabel = itemView.FindViewById<TextView>(Resource.Id.tree_menu_item_title_label);
             ItemView.Click += HandleItemClicked;
         }
 
@@ -101,57 +99,12 @@ namespace TreeMenuView.Android
             }
         }
 
-        public TextView TitleLabel { get; }
-
-        public ItemRelation Relation {
-            set {
-                switch(value) {
-                    case ItemRelation.Root:
-                        ApplyRootLayout();
-                        break;
-                    case ItemRelation.Parent:
-                        ApplyParentLayout();
-                        break;
-                    case ItemRelation.Selected:
-                        ApplySelectedLayout();
-                        break;
-                    case ItemRelation.Child:
-                        ApplyChildLayout();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
-                }
-            }
-        }
-
-        private void ApplyRootLayout()
-        {
-            TitleLabel.SetTextColor(ContextCompat.GetColorStateList(TitleLabel.Context, Resource.Color.tree_menu_parent_item_text_selector));
-            ItemView.SetBackgroundResource(Resource.Drawable.tree_menu_parent_item_background_selector);
-        }
-
-        private void ApplyParentLayout()
-        {
-            TitleLabel.SetTextColor(ContextCompat.GetColorStateList(TitleLabel.Context, Resource.Color.tree_menu_parent_item_text_selector));
-            ItemView.SetBackgroundResource(Resource.Drawable.tree_menu_parent_item_background_selector);
-        }
-
-        private void ApplySelectedLayout()
-        {
-            TitleLabel.SetTextColor(ContextCompat.GetColorStateList(TitleLabel.Context, Resource.Color.tree_menu_selected_item_text_selector));
-            ItemView.SetBackgroundResource(Resource.Drawable.tree_menu_selected_item_background_selector);
-        }
-
-        private void ApplyChildLayout()
-        {
-            TitleLabel.SetTextColor(ContextCompat.GetColorStateList(TitleLabel.Context, Resource.Color.tree_menu_child_item_text_selector));
-            ItemView.SetBackgroundResource(Resource.Drawable.tree_menu_child_item_background_selector);
-        }
-        
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
             ItemView.Click -= HandleItemClicked;
         }
+
+        public TreeMenuCell Cell => (TreeMenuCell) ItemView;
     }
 }

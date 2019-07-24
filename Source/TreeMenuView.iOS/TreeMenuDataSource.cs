@@ -8,15 +8,17 @@ namespace TreeMenuView.iOS
     public sealed class TreeMenuDataSource<TData, TKey> : UICollectionViewDataSource where TData : ITreeNodeData<TKey>
     {
         private readonly TreeMenuDataSourceDelegate<TData, TKey> _delegate;
+        private readonly string _cellIdentifier;
         
-        public TreeMenuDataSource(nfloat cellHeight) 
+        public TreeMenuDataSource(nfloat cellHeight, string cellIdentifier) 
         {
             _delegate = new TreeMenuDataSourceDelegate<TData, TKey>(cellHeight, GetCell, HandleItemStateChanged);
+            _cellIdentifier = cellIdentifier;
         }
 
-        private static UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath, ItemRelation relation, TData data)
+        private UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath, ItemRelation relation, TData data)
         {
-            var cell = (TreeMenuCell) collectionView.DequeueReusableCell(TreeMenuCell.CellIdentifier, indexPath);
+            var cell = (TreeMenuCell) collectionView.DequeueReusableCell(_cellIdentifier, indexPath);
             cell.Title = data.Title;
             cell.Relation = relation;
             return cell;

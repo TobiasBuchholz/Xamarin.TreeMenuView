@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="@color/tree_menu_child_item_background_pressed">
-    <item>
-        <color android:color="@color/tree_menu_child_item_background"/>
-    </item>
-</ripple>
