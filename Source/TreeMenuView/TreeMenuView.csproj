@@ -8,9 +8,9 @@
     <RootNamespace>TreeMenuView</RootNamespace>
 
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <AssemblyFileVersion>1.0.0.2</AssemblyFileVersion>
-    <Version>1.0.0.2</Version>
+    <AssemblyVersion>1.0.0.4</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.4</AssemblyFileVersion>
+    <Version>1.0.0.4</Version>
     <NeutralLanguage>en</NeutralLanguage>
 
     <!--Don't auto add files for me, I will tell you -->
@@ -20,6 +20,22 @@
     <DefineConstants>$(DefineConstants);</DefineConstants>
 
     <!--Assembly and Namespace info -->
+    <PackageId>TreeMenuView</PackageId>
+    <PackageVersion>1.0.0.4</PackageVersion>
+
+    <PackageLicenseUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView</RepositoryUrl>
+    <PackageIconUrl>https://img.icons8.com/cotton/2x/tree.png</PackageIconUrl>
+    <PackageTags>xamarin, ios, android</PackageTags>
+
+    <Title>TreeMenuView</Title>
+    <Summary>A tree like structured list which enables the user to navigate through different levels of menu items</Summary>
+    <Description>A tree like structured list which enables the user to navigate through different levels of menu items</Description>
+
+    <Owners>Tobias Buchholz</Owners>
+    <Authors>Tobias Buchholz</Authors>
+    <Copyright>Copyright 2019</Copyright>
 
     <!--Version of C# to use -->
     <LangVersion>default</LangVersion>
