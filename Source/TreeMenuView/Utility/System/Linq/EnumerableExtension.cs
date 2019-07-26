@@ -52,14 +52,6 @@ namespace System.Linq
             e = (IEnumerator<TSource>) null;
         }
         
-        public static IEnumerable<int> ToGroupIndexes<TKey, TElement>(this IEnumerable<IGrouping<TKey, TElement>> @this)
-        {
-            return @this
-                .Select(g => g.Count())
-                .Scan((acc, next) => acc + next, 0)
-                .SkipLast(1);
-        }
-        
         public static bool TryFirst<T>(this IEnumerable<T> @this, Func<T, bool> filter, out T result) 
         {
             result = default(T);

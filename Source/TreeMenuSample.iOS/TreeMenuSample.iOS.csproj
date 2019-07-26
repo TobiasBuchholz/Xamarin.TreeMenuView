@@ -62,6 +62,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="netstandard" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -138,16 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TreeMenuSample.Shared\TreeMenuSample.Shared.csproj">
-      <Project>{f55dd5f0-579c-4510-9d3f-c0f3608e8fa5}</Project>
+      <Project>{45FAFBB0-19C3-4538-A6FB-5D8E66A4277B}</Project>
       <Name>TreeMenuSample.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TreeMenuView.iOS\TreeMenuView.iOS.csproj">
-      <Project>{0d0ca334-e3d8-4e20-9f9e-23e204165636}</Project>
-      <Name>TreeMenuView.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TreeMenuView.Shared\TreeMenuView.Shared.csproj">
-      <Project>{8570ad67-4d95-44dd-a121-2e9ed3c9077d}</Project>
-      <Name>TreeMenuView.Shared</Name>
+    <ProjectReference Include="..\TreeMenuView\TreeMenuView.csproj">
+      <Project>{E71F3053-056C-4381-9638-048ED73BDFF6}</Project>
+      <Name>TreeMenuView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

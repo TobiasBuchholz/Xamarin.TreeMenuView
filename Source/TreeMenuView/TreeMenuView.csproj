@@ -1,0 +1,69 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.29">
+
+  <PropertyGroup>
+    <TargetFrameworks>Xamarin.iOS10;MonoAndroid90;netstandard2.0</TargetFrameworks>
+
+    <!--Assembly and Namespace info -->
+    <AssemblyName>TreeMenuView</AssemblyName>
+    <RootNamespace>TreeMenuView</RootNamespace>
+
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.2</AssemblyFileVersion>
+    <Version>1.0.0.2</Version>
+    <NeutralLanguage>en</NeutralLanguage>
+
+    <!--Don't auto add files for me, I will tell you -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <!-- Helper to add defines-->
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <!--Assembly and Namespace info -->
+
+    <!--Version of C# to use -->
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+
+  <!-- Define what happens on build and release -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <DebugType>pdbonly</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
+    <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
+
+    <!-- We will compile anything ending in .shared.cs  You can change this -->
+    <Compile Include="Shared\**\*.cs" />
+    <Compile Include="Utility\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Include="Android\**\*.cs" />
+    <!-- if you have resources add this
+    <AndroidResource Include="Resources\**\*.axml" />
+    <AndroidResource Include="Resources\**\*.xml" />
+    <AndroidResource Include="Resources\**\*.png" />
+    -->
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+    <Compile Include="iOS\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid90'">
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <ProjectReference Include="..\TreeMenuView\TreeMenuView.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TreeMenuView.Shared\TreeMenuView.Shared.csproj" />
-  </ItemGroup>
 </Project>
