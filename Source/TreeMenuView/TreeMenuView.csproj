@@ -8,9 +8,9 @@
     <RootNamespace>TreeMenuView</RootNamespace>
 
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <AssemblyVersion>1.0.0.9</AssemblyVersion>
-    <AssemblyFileVersion>1.0.0.9</AssemblyFileVersion>
-    <Version>1.0.0.9</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
     <NeutralLanguage>en</NeutralLanguage>
 
     <!--Don't auto add files for me, I will tell you -->
@@ -21,9 +21,9 @@
 
     <!--Assembly and Namespace info -->
     <PackageId>TreeMenuView</PackageId>
-    <PackageVersion>1.0.0.9</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
 
-    <PackageLicenseUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TobiasBuchholz/Xamarin.TreeMenuView</RepositoryUrl>
     <PackageIconUrl>https://img.icons8.com/cotton/2x/tree.png</PackageIconUrl>
