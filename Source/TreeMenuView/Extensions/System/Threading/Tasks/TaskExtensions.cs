@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 
-namespace System.Threading.Tasks
+namespace TreeMenuView.Extensions.System.Threading.Tasks
 {
     public static class TaskExtensions
     {

@@ -1,57 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace System.Linq
+namespace TreeMenuView.Extensions.System.Linq
 {
     public static class EnumerableExtension
     {
-        public static IEnumerable<U> Scan<T, U>(this IEnumerable<T> input, Func<U, T, U> next, U state) 
-        {
-            yield return state;
-            foreach(var item in input) {
-                state = next(state, item);
-                yield return state;
-            }
-        }
-        
-        // taken from decompiled source code
-        public static IEnumerable<TSource> SkipLast<TSource>(this IEnumerable<TSource> source, int count)
-        {
-            if (source == null)
-                throw new ArgumentNullException();
-            if (count <= 0)
-                return source.Skip(0);
-            return SkipLastIterator(source, count);
-        }
-
-        private static IEnumerable<TSource> SkipLastIterator<TSource>(IEnumerable<TSource> source, int count)
-        {
-            Queue<TSource> queue = new Queue<TSource>();
-            IEnumerator<TSource> e = source.GetEnumerator();
-            try
-            {
-                while (e.MoveNext())
-                {
-                    if (queue.Count == count)
-                    {
-                        do
-                        {
-                            yield return queue.Dequeue();
-                            queue.Enqueue(e.Current);
-                        }
-                        while (e.MoveNext());
-                        break;
-                    }
-                    queue.Enqueue(e.Current);
-                }
-            }
-            finally
-            {
-                if (e != null)
-                    e.Dispose();
-            }
-            e = (IEnumerator<TSource>) null;
-        }
-        
         public static bool TryFirst<T>(this IEnumerable<T> @this, Func<T, bool> filter, out T result) 
         {
             result = default(T);
@@ -64,15 +18,6 @@ namespace System.Linq
             return false;
         }
 
-        public static bool TryRemoveFirst<T>(this IList<T> @this, Func<T, bool> filter, out T result)
-        {
-            if(@this.TryFirst(filter, out result)) {
-                @this.Remove(result);
-                return true;
-            }
-            return false;
-        }
-        
         public static IEnumerable<IEnumerable<int>> GroupConsecutive(this IEnumerable<int> src) 
         {
             var more = false; 

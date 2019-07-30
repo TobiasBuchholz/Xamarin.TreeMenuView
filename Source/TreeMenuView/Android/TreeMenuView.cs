@@ -5,10 +5,11 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using TreeMenuView.Shared.Extensions;
 using TreeMenuView.Shared.Models;
+using static Android.Support.V7.Widget.RecyclerView;
 
 namespace TreeMenuView.Android
 {
-    public sealed class TreeMenuView<TData, TKey> where TData : ITreeNodeData<TKey>
+    public class TreeMenuView<TData, TKey> where TData : ITreeNodeData<TKey>
     {
         private readonly RecyclerView _recyclerView;
         private readonly TreeMenuAdapter<TData, TKey> _adapter;
@@ -24,6 +25,16 @@ namespace TreeMenuView.Android
         public void ReloadData()
         {
             _adapter.NotifyDataSetChanged();
+        }
+
+        public void AddOnItemTouchListener(IOnItemTouchListener listener)
+        {
+            _recyclerView.AddOnItemTouchListener(listener);
+        }
+
+        public void RemoveOnItemTouchListener(IOnItemTouchListener listener)
+        {
+            _recyclerView.RemoveOnItemTouchListener(listener);
         }
 
         public IEnumerable<TData> Items {

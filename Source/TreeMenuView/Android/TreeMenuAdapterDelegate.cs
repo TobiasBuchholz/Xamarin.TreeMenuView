@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Android.Support.V7.Util;
 using Android.Support.V7.Widget;
 using Android.Views;
+using TreeMenuView.Extensions.System.Collections.Generic;
+using TreeMenuView.Extensions.System.Linq;
+using TreeMenuView.Extensions.System.Threading.Tasks;
 using TreeMenuView.Shared.Models;
 
 namespace TreeMenuView.Android

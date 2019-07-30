@@ -8,14 +8,16 @@ using UIKit;
 
 namespace TreeMenuView.iOS
 {
-    public sealed class TreeMenuView<TData, TKey> where TData : ITreeNodeData<TKey>
+    public class TreeMenuView<TData, TKey> where TData : ITreeNodeData<TKey>
     {
         private readonly UICollectionView _collectionView;
         private readonly TreeMenuDataSource<TData, TKey> _dataSource;
+        private readonly float _cellHeight;
         
         public TreeMenuView(string cellIdentifier, float cellHeight) 
         {
             var collectionViewDelegate = new TreeMenuCollectionViewDelegate();
+            _cellHeight = cellHeight;
             _dataSource = new TreeMenuDataSource<TData, TKey>(cellHeight, cellIdentifier);
             _collectionView = new UICollectionView(CGRect.Empty, CreateCollectionViewLayout(cellHeight));
             _collectionView.BackgroundColor = UIColor.Clear;
@@ -25,12 +27,17 @@ namespace TreeMenuView.iOS
             collectionViewDelegate.OnItemSelected += (sender, args) => _dataSource.ItemSelected(_collectionView, args.IndexPath);
         }
         
-        private static TreeMenuCollectionViewFlowLayout CreateCollectionViewLayout(float itemHeight)
+        private TreeMenuCollectionViewFlowLayout CreateCollectionViewLayout(float itemHeight)
         {
             return new TreeMenuCollectionViewFlowLayout {
                 MinimumLineSpacing = 0,
-                ItemSize = new CGSize(UIScreen.MainScreen.Bounds.Width, itemHeight)
+                ItemSize = CreateCollectionViewItemSize()
             };
+        }
+
+        private CGSize CreateCollectionViewItemSize()
+        {
+            return new CGSize(UIScreen.MainScreen.Bounds.Width, _cellHeight);
         }
         
         public void RegisterClassForCell(Type cellType, string reuseIdentifier)
@@ -53,11 +60,23 @@ namespace TreeMenuView.iOS
             _collectionView.ReloadData();
         }
 
+        public void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+        {
+            var layout = (UICollectionViewFlowLayout) _collectionView.CollectionViewLayout;
+            layout.ItemSize = CreateCollectionViewItemSize();
+            _collectionView.CollectionViewLayout = layout;
+        }
+
         public IEnumerable<TData> Items {
             set => _dataSource.CurrentNode = value.ToRootTreeNodes<TData, TKey>()[0];
         }
 
         public UIView View => _collectionView;
+
+        public UIView BackgroundView {
+            get => _collectionView.BackgroundView;
+            set => _collectionView.BackgroundView = value;
+        }
         
         public TreeNode<TData, TKey> CurrentNode {
             get => _dataSource.CurrentNode;
@@ -68,7 +87,7 @@ namespace TreeMenuView.iOS
             add => _dataSource.NodeSelected += value;
             remove => _dataSource.NodeSelected -= value;
         }
-        
+
         public event EventHandler<nfloat> HeightWillChange {
             add => _dataSource.HeightWillChange += value;
             remove => _dataSource.HeightWillChange -= value;

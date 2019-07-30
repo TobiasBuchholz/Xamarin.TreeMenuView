@@ -1,4 +1,7 @@
-﻿namespace System.Collections.Generic
+﻿using System;
+using System.Collections.Generic;
+
+namespace TreeMenuView.Extensions.System.Collections.Generic
 {
     public static class ListExtensions
     {

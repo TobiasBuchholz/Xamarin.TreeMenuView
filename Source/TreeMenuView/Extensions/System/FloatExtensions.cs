@@ -1,4 +1,6 @@
-namespace System
+using System;
+
+namespace TreeMenuView.Extensions.System
 {
 	public static class FloatExtensions
 	{
