@@ -18,15 +18,15 @@ namespace TreeMenuView.iOS
 
         private UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath, ItemRelation relation, TData data)
         {
-            var cell = (TreeMenuCell) collectionView.DequeueReusableCell(_cellIdentifier, indexPath);
-            cell.Title = data.Title;
+            var cell = (TreeMenuCell<TData>) collectionView.DequeueReusableCell(_cellIdentifier, indexPath);
+            cell.Data = data;
             cell.Relation = relation;
             return cell;
         }
         
         private static void HandleItemStateChanged(UICollectionViewCell collectionViewCell, ItemRelation relation)
         {
-            var cell = (TreeMenuCell) collectionViewCell;
+            var cell = (TreeMenuCell<TData>) collectionViewCell;
             cell.Relation = relation;
         }
 

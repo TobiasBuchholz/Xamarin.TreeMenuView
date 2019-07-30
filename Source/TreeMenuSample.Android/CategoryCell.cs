@@ -6,10 +6,11 @@ using Android.Views;
 using Android.Widget;
 using TreeMenuView.Android;
 using TreeMenuView.Shared.Models;
+using TreeMenuSample.Shared;
 
 namespace TreeMenuSample.Android
 {
-    public sealed class CategoryCell : TreeMenuCell
+    public sealed class CategoryCell : TreeMenuCell<Category>
     {
         private TextView _titleLabel;
         
@@ -49,8 +50,8 @@ namespace TreeMenuSample.Android
             AddView(divider);
         }
 
-        public override string Title {
-            set => _titleLabel.Text = value;
+        public override Category Data {
+            set => _titleLabel.Text = value.Title;
         }
 
         public override ItemRelation Relation {

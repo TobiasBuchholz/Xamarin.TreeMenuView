@@ -6,7 +6,7 @@ using UIKit;
 
 namespace TreeMenuView.iOS
 {
-    public abstract class TreeMenuCell : UICollectionViewCell, ITreeMenuCell
+    public abstract class TreeMenuCell<TData> : UICollectionViewCell, ITreeMenuCell<TData>
     {
         [Export("initWithFrame:")]
         protected TreeMenuCell(CGRect frame) 
@@ -14,7 +14,7 @@ namespace TreeMenuView.iOS
         {
         }
         
-        public abstract string Title { set; }
+        public abstract TData Data { set; }
         public abstract ItemRelation Relation { set; }
     }
 }

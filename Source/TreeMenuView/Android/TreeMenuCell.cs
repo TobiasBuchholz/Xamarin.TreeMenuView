@@ -7,7 +7,7 @@ using TreeMenuView.Shared.Models;
 
 namespace TreeMenuView.Android
 {
-    public abstract class TreeMenuCell : FrameLayout, ITreeMenuCell
+    public abstract class TreeMenuCell<TData> : FrameLayout, ITreeMenuCell<TData>
     {
         protected TreeMenuCell(IntPtr javaReference, JniHandleOwnership transfer) 
             : base(javaReference, transfer)
@@ -34,7 +34,7 @@ namespace TreeMenuView.Android
         {
         }
 
-        public abstract string Title { set; }
+        public abstract TData Data { set; }
         public abstract ItemRelation Relation { set; }
     }
 }

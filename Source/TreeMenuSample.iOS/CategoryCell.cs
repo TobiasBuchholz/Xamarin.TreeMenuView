@@ -3,11 +3,12 @@ using CoreGraphics;
 using Foundation;
 using TreeMenuView.iOS;
 using TreeMenuView.Shared.Models;
+using TreeMenuSample.Shared;
 using UIKit;
 
 namespace TreeMenuSample.iOS
 {
-    public sealed class CategoryCell : TreeMenuCell
+    public sealed class CategoryCell : TreeMenuCell<Category>
     {
         public const string CellIdentifier = nameof(CategoryCell);
         public const float Height = 56;
@@ -45,8 +46,8 @@ namespace TreeMenuSample.iOS
             divider.HeightAnchor.ConstraintEqualTo(1).Active = true;
         }
 
-        public override string Title {
-            set => _label.Text = value;
+        public override Category Data {
+            set => _label.Text = value.Title;
         }
 
         public override ItemRelation Relation {

@@ -14,7 +14,7 @@ namespace TreeMenuView.Android
         private readonly RecyclerView _recyclerView;
         private readonly TreeMenuAdapter<TData, TKey> _adapter;
         
-        public TreeMenuView(Context context, Func<ViewGroup, int, TreeMenuCell> cellSelector, int itemHeight) 
+        public TreeMenuView(Context context, Func<ViewGroup, int, TreeMenuCell<TData>> cellSelector, int itemHeight) 
         {
             _recyclerView = new RecyclerView(context);
             _adapter = new TreeMenuAdapter<TData, TKey>(_recyclerView, cellSelector, itemHeight);

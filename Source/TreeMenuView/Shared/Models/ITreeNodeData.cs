@@ -4,6 +4,5 @@ namespace TreeMenuView.Shared.Models
     {
         TKey ParentId { get; }
         TKey Id { get; }
-        string Title { get; }
     }
 }

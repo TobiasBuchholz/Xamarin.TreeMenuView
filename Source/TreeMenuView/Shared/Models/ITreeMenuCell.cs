@@ -1,8 +1,8 @@
 namespace TreeMenuView.Shared.Models
 {
-    public interface ITreeMenuCell
+    public interface ITreeMenuCell<TData>
     {
-        string Title { set; }
+        TData Data { set; }
         ItemRelation Relation { set; }
     }
 }

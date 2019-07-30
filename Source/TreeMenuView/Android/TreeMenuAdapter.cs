@@ -10,9 +10,9 @@ namespace TreeMenuView.Android
         where TData : ITreeNodeData<TKey>
     {
         private readonly TreeMenuAdapterDelegate<TData, TKey> _delegate;
-        private readonly Func<ViewGroup, int, TreeMenuCell> _cellSelector;
+        private readonly Func<ViewGroup, int, TreeMenuCell<TData>> _cellSelector;
         
-        public TreeMenuAdapter(RecyclerView recyclerView, Func<ViewGroup, int, TreeMenuCell> cellSelector, int itemHeight)
+        public TreeMenuAdapter(RecyclerView recyclerView, Func<ViewGroup, int, TreeMenuCell<TData>> cellSelector, int itemHeight)
         {
             _cellSelector = cellSelector;
             _delegate = new TreeMenuAdapterDelegate<TData, TKey>(
@@ -25,7 +25,7 @@ namespace TreeMenuView.Android
 
         private RecyclerView.ViewHolder SelectViewHolder(ViewGroup parent, int viewType)
         {
-            return new TreeMenuAdapterViewHolder(_cellSelector(parent, viewType), OnItemSelected);
+            return new TreeMenuAdapterViewHolder<TData>(_cellSelector(parent, viewType), OnItemSelected);
         }
         
         private void OnItemSelected(int index)
@@ -36,14 +36,14 @@ namespace TreeMenuView.Android
 
         private static void HandleViewHolderBound(RecyclerView.ViewHolder holder, ItemRelation relation, TData data)
         {
-            var viewHolder = (TreeMenuAdapterViewHolder) holder;
-            viewHolder.Cell.Title = data.Title;
+            var viewHolder = (TreeMenuAdapterViewHolder<TData>) holder;
+            viewHolder.Cell.Data = data;
             viewHolder.Cell.Relation = relation;
         }
 
         private static void HandleItemStateChanged(RecyclerView.ViewHolder holder, ItemRelation relation)
         {
-            var viewHolder = (TreeMenuAdapterViewHolder) holder;
+            var viewHolder = (TreeMenuAdapterViewHolder<TData>) holder;
             viewHolder.Cell.Relation = relation;
         }
         
@@ -76,7 +76,7 @@ namespace TreeMenuView.Android
         }
     }
     
-    internal class TreeMenuAdapterViewHolder : RecyclerView.ViewHolder
+    internal class TreeMenuAdapterViewHolder<TData> : RecyclerView.ViewHolder
     {
         private readonly Action<int> _itemSelectedAction;
         
@@ -105,6 +105,6 @@ namespace TreeMenuView.Android
             ItemView.Click -= HandleItemClicked;
         }
 
-        public TreeMenuCell Cell => (TreeMenuCell) ItemView;
+        public TreeMenuCell<TData> Cell => (TreeMenuCell<TData>) ItemView;
     }
 }
