@@ -1,12 +1,17 @@
 # Xamarin.TreeMenuView
 
-[![NuGet](https://img.shields.io/nuget/v/treemenuview.svg?maxAge=259200&style=flat)](https://www.nuget.org/packages/TreeMenuView/)
+[![NuGet](https://img.shields.io/nuget/v/treemenuview.svg?maxAge=86400&style=flat)](https://www.nuget.org/packages/TreeMenuView/)
 
 The TreeMenuView constrol is an animated tree like structured list which enables the user to navigate through different levels of menu items. For now it can only be used by native Xamarin.iOS and Xamarin.Android clients, but Xamarin Forms support is planned as well. Under the hood it is implemented by utilising the power of the `UICollectionView` on iOS and the `RecyclerView` on android.
 
 The tree structure of the data is realised by letting your model class implement the `Id` and `ParentId` property of the `ITreeNodeData<TKey>` interface. Now you can pass your data as a flat list to the `TreeMenuView.Items` property and it will handle the rest.
 
 The layout of the menu item cells is completely custom. You just need to create a subclass of `TreeMenuCell<T, TKey>`, which itself is a subclass of `UICollectionViewCell` on iOS and `FrameLayout` on android.
+
+<br/>
+
+|<img src="https://github.com/TobiasBuchholz/Xamarin.TreeMenuView/blob/master/Assets/ios.gif" width="320">|<img src="https://github.com/TobiasBuchholz/Xamarin.TreeMenuView/blob/master/Assets/android.gif" width="320">|
+|----------|-------------|
 
 <a name="installation"> Installation </a>
 --------------
