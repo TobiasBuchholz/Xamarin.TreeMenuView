@@ -2,7 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/treemenuview.svg?maxAge=86400&style=flat)](https://www.nuget.org/packages/TreeMenuView/)
 
-The TreeMenuView constrol is an animated tree like structured list which enables the user to navigate through different levels of menu items. For now it can only be used by native Xamarin.iOS and Xamarin.Android clients, but Xamarin Forms support is planned as well. Under the hood it is implemented by utilising the power of the `UICollectionView` on iOS and the `RecyclerView` on android.
+The `TreeMenuView` constrol is an animated tree like structured list which enables the user to navigate through different levels of menu items. For now it can only be used by native Xamarin.iOS and Xamarin.Android clients, but Xamarin Forms support is planned as well. Under the hood it is implemented by utilising the power of the `UICollectionView` on iOS and the `RecyclerView` on android.
 
 The tree structure of the data is realised by letting your model class implement the `Id` and `ParentId` property of the `ITreeNodeData<TKey>` interface. Now you can pass your data as a flat list to the `TreeMenuView.Items` property and it will handle the rest.
 
