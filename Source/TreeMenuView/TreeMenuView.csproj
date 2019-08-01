@@ -82,4 +82,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <PropertyGroup Label="Android DesignTimeBuild error workaround">
+    <DesignTimeBuild>false</DesignTimeBuild>
+  </PropertyGroup>
+
 </Project>
