@@ -46,14 +46,16 @@ namespace TreeMenuView.iOS
 
         private async Task SetCurrentNodeWithAnimationAsync(UICollectionView collectionView, TreeNode<T, TKey> selectedNode)
         {
-            var diffResult = TreeMenuDiff.Calculate(CurrentNode, selectedNode);
+            var diffResult = TreeMenuDiff.Calculate(_currentNode, selectedNode);
             diffResult
                 .ChangedIndexes
                 .Select(x => (cell: collectionView.CellForItem(NSIndexPath.FromRowSection(x.Index, 0)), relation: x.Relation))
                 .Where(x => x.cell != null)
                 .ForEach((_,x) => _itemStateChanged(x.cell, x.relation));
             
-            CurrentNode = selectedNode;
+            _currentNode = selectedNode;
+            _itemCollection.CurrentNode = selectedNode;
+
             await AnimateDiffAsync(collectionView, diffResult);
             NodeSelected?.Invoke(this, selectedNode);
         }
@@ -95,7 +97,7 @@ namespace TreeMenuView.iOS
             set {
                 _currentNode = value;
                 _itemCollection.CurrentNode = value;
-                ItemsCount = ItemsCount == 0 ? _itemCollection.Count : ItemsCount;
+                ItemsCount = _itemCollection.Count;
             }
         }
 

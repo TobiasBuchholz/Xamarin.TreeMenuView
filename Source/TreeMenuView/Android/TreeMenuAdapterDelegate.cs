@@ -60,14 +60,16 @@ namespace TreeMenuView.Android
 
         private async Task SetCurrentNodeWithAnimationAsync(TreeNode<T, TKey> selectedNode)
         {
-            var diffResult = TreeMenuDiff.Calculate(CurrentNode, selectedNode);
+            var diffResult = TreeMenuDiff.Calculate(_currentNode, selectedNode);
             diffResult
                 .ChangedIndexes
                 .Select(x => (cell: _recyclerView.FindViewHolderForLayoutPosition(x.Index), relation: x.Relation))
                 .Where(x => x.cell != null)
                 .ForEach((_,x) => _itemStateChanged(x.cell, x.relation));
             
-            CurrentNode = selectedNode;
+            _currentNode = selectedNode;
+            _itemCollection.CurrentNode = selectedNode;
+
             _itemAnimator.DiffResult = diffResult;
             await AnimateDiffAsync(diffResult);
             NodeSelected?.Invoke(this, selectedNode);
@@ -134,7 +136,7 @@ namespace TreeMenuView.Android
             set {
                 _currentNode = value;
                 _itemCollection.CurrentNode = value;
-                ItemCount = ItemCount == 0 ? _itemCollection.Count : ItemCount;
+                ItemCount = _itemCollection.Count;
             }
         }
 
